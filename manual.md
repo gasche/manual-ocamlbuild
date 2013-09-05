@@ -389,6 +389,12 @@ not describe its most advanced constructors -- it is again exposed in
       | A of string    (** An atom. *)
       | P of pathname  (** A pathname. *)
       [...]
+      
+When creating new flags, it is sometime difficult to know which combination of
+tags to use. A hint to find the right combination is to have a look at
+ocamlbuild's log file that is saved in _build/_log each time ocamlbuild is run.
+It is containing the targets ocamlbuild tried to produce, with the associated
+list of tags and the corresponding command lines.
 
 ### Parametrized tags
 
