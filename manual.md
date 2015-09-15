@@ -878,13 +878,13 @@ Some examples of documentation of rules or flags, produced by
 `ocamlbuild -documentation`, are the following:
 
     rule "ocaml: modular menhir (mlypack)"
-      ~deps:[ %.mlypack ]
-      ~prods:[ %.mli; %.ml ]
-      ~doc:"Menhir supports building a parser by composing several .mly files
-            together, containing different parts of the grammar description. To
-            use that feature with ocamlbuild, you should create a .mlypack file
-            with the same syntax as .mllib or .mlpack files: a
-            whitespace-separated list of the capitalized module names of the .mly
+      ~deps:[ "%.mlypack" ]
+      ~prods:[ "%.mli"; "%.ml" ]
+      ~doc:"Menhir supports building a parser by composing several .mly files \
+            together, containing different parts of the grammar description. To \
+            use that feature with ocamlbuild, you should create a .mlypack file \
+            with the same syntax as .mllib or .mlpack files: a \
+            whitespace-separated list of the capitalized module names of the .mly \
             files you want to combine together."
       <fun>
 
