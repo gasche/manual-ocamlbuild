@@ -48,11 +48,11 @@ OCamlbuild's job is to determine the sequence of calls to the
 compiler, with the right set of command-line flags, needed to build
 your OCaml project.
 
-OCamlbuild is extremely convenient to use for simple projects: if you
+OCamlbuild is extremely convenient to use for simple projects. If you
 have a small OCaml project (program or library), chances are you can
-directly invoke ocamlbuild to automatically discover the various
+directly invoke ocamlbuild to automatically discover various
 source files and dependencies, and build executables, library archives
-or documentations with one-line commands -- in simple cases you don't
+or documentation with one-line commands. In simple cases you don't
 need to write a configuration file at all.
 
 A few examples of quick ocamlbuild commands:
@@ -94,7 +94,7 @@ OCamlbuild features in the [examples/](examples/) sub-directory of
 this documentation, which may serve as inspiration.
 
 Note that there are many ways to integrate ocamlbuild in your project;
-the examples provided so far use a Makefile on top of of ocamlbuild to
+the examples provided so far use a Makefile on top of ocamlbuild to
 provide the familiar `make; make install; make clean` interface to
 users, but you should of course feel free to do otherwise.
 
@@ -184,9 +184,9 @@ Some alternatives for building OCaml projects are:
   a really-simple build system with a declarative configuration
   language that has 80% the features, to cover most simple projects.
 
-The "Real World OCaml" book uses a tool named `corebuild`, which is in
+The "Real World OCaml" book uses a tool named `corebuild`---which is in
 fact just a simple wrapper on top of `ocamlbuild` provided by the
-OCaml library named `core` -- with some common options for `core`
+OCaml library named `core`---with some common options for `core`
 projects baked in.
 
 ## Core concepts <a id="intro-core-concepts"></a>
@@ -194,7 +194,7 @@ projects baked in.
 ### Rules and targets <a id="concept-rules-targets"></a>
 
 OCamlbuild knows about a set of *rules* to build programs, that
-provide a piece of OCaml code to build certain kind of files, named
+provide a piece of OCaml code to build certain kinds of files, named
 *targets*, from some dependencies (statically known or
 dynamically discovered). For example, a built-in "%.ml -> %.cmo" rule
 describes how to build any `.cmo` compilation unit file from the `.ml`
@@ -202,10 +202,10 @@ of the same name; if you call `ocamlbuild foo.cmo`, it will either use
 `foo.ml` in your source directory or, if it doesn't exist, try to
 build it, for example from `foo.mll` or `foo.mly`.
 
-OCamlbuild knows various targets to build all sort of useful things:
+OCamlbuild knows various targets to build all sorts of useful things:
 byte or native programs (`.byte`, `.native`), library archives
 (`.cma`, `.cmxa`, `.cmxs`), documentation (`.docdir/index.html`,
-`.docdir/man`), etc. We will detail those in the [Reference
+`.docdir/man`), etc. We will detail these in the [Reference
 section](#reference-targets).
 
 ### Tags and the `_tags` file <a id="concept-tags"></a>
@@ -220,10 +220,10 @@ process, but not during an initial syntactic preprocessing step
 your program's targets, and it will sort out when to insert the `-g`
 flag or not.
 
-To attach tags to your OCamlbuild targets, you write them in a `_tags`
-file. Each line is of the form `foo: bar`. `bar` is a list of tags,
-and `foo` is a filter that determines to which targets `bar`
-applies. For example the `_tags` file
+To attach tags to your OCamlbuild targets, you write them in an `_tags`
+file. Each line is of the form `foo: bar`, where `bar` is a list of tags,
+and `foo` is a filter that determines which targets `bar`
+applies to. For example the `_tags` file
 
     true: package(toto), package(tata)
     <foo.*> or <bar.*>: debug
