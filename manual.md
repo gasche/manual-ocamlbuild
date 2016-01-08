@@ -1387,6 +1387,23 @@ that decides which, if any, tags are taken into account and if they come
 from the rule dependencies, products or both. (Unfortunately, the built-in
 rules themselves are sometimes a bit inconsistent on this.)
 
+##### Remark: rule overwriting and ordering
+
+As discussed in previous sections, OCamlbuild comes with many built in
+[rules](#concept-rules-targets) to build OCaml [targets](#reference-targets).
+The example above overwrites one of the build in rules (which one
+can see with `$ ocamlbuild -documentation | grep --context=10
+"ocaml dependencies ml"`).
+One cannot overwrite existing rules and needs to use a different name
+(e.g. "custom ocaml dependencies ml").
+Lastly, the new rule needs to come _before_ the rule that it is replacing.
+Use the `~insert` argument to `rule` to either (suggested) place it before
+the built in rule (`` `before "ocaml dependencies ml" ``) or at the top
+(`` `top``).
+The default behavior of `~insert` will place the custom rule at the bottom,
+where it will not be applied because the built-in rule can satisfy the target.
+
+
 ### Dynamic dependencies <a id="rules-dynamic-deps"></a>
 
 In the action `ocamldep_ml_command` of the previous example, the
