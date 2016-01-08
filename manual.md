@@ -572,7 +572,8 @@ themselves.
 
 The target extensions understood by the OCamlbuild built-in rules are
 listed in the following subsections. Again, note that `myocamlbuild`
-plugins may add new targets and rules.
+plugins may add new targets and rules. To see them programmatically,
+see the [`-documentation`](#reference-documentation) section.
 
 ### Basic targets <a id="targets-basics"></a>
 
