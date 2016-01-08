@@ -1339,20 +1339,20 @@ rule. The plugin author defining this rule should define the
       let tags = tags_of_pathname arg ++ "ocaml" ++ "ocamldep" in
       Cmd(S[A "ocamldep"; T tags; A "-modules"; P arg; Sh ">"; Px out])
 
-The first line in this definition is to use the pattern environment to
-compute the actual name of the input file, to pass in argument to the
-`ocamldep` command, and of the result target name. The environment
-type `PLUGIN.env` is just `string -> string`, it takes a pattern and
-substitutes its pattern variables to return a closed result.
+The first line in this definition uses the pattern environment to
+compute the actual name of the input and output files. These are then
+passed in as arguments to the `ocamldep` command and shell redirect,
+respectively, on the third line.
+The environment type `PLUGIN.env` is just `string -> string`, it takes
+a pattern and substitutes its pattern variables to return a closed result.
 
-The second line in this definition computes the set of tags to include
-in this command invocation. When OCamlbuild is passed the command
-back, it will use its tag declarations to turn this set of tags in
-additional flags to insert in the command invocation. The call
-`tags_of_pathname arg` looks up in the `_tags` file for any tag
-associated to the `foo.ml` file, and the rule code also adds the two
-contextual tags `ocaml` and `ocamldep` (on which tag declarations
-may depend).
+The second line in this definition computes the tags to include in the
+command invocation. When OCamlbuild is passed back the command, it uses
+the tag declarations to determine which, if any, additional flags to
+insert into the command invocation. The call `tags_of_pathname arg`
+looks up in the `_tags` file any tags associated with file `foo.ml`.
+To these tags the rule code also adds the two contextual tags `ocaml`
+and `ocamldep` (on which flag declarations may depend).
 
 Finally, the command is built:
 
@@ -1378,23 +1378,22 @@ this information is used by OCamlbuild for logging purposes.
 
 ##### Remark: tags handling in rules
 
-Remark that it is entirely of the rule author's responsibility to
-include tags in the action's command. In particular, it is the code of
-the rule action that decides if the tags taken into account, if any,
-are the tags assigned to the rule dependencies, or productions, or
-both. (Unfortunately the built-in rule themselves are sometimes a bit
-inconsistent on this.)
+It is entirely the rule author's responsibility to include tags in the
+action's command. In particular, it is the code of the rule's action
+that decides which, if any, tags are taken into account and if they come
+from the rule dependencies, products or both. (Unfortunately, the built-in
+rules themselves are sometimes a bit inconsistent on this.)
 
 ### Dynamic dependencies <a id="rules-dynamic-deps"></a>
 
 In the action `ocamldep_ml_command` of the previous example, the
-`_build` parameter of type `PLUGIN.builder` was ignored. This is
-because this rule had no dynamic dependencies, no need to build extra
-targets determined during the execution of the rule itself -- the
-static dependency is built by ocamlbuild's resolution engine before
-the action itself is executed.
+`_build` parameter (of type `PLUGIN.builder`) was ignored, because the
+rule had no dynamic dependencies; no need to build extra targets
+determined during the execution of the rule itself. The static
+dependency is built by ocamlbuild's resolution engine before the
+action executed.
 
-The following example uses on dynamic depencies:
+The following example demonstrates dynamic depencies:
 
     let target_list env build =
         let itarget = env "%.itarget" in
@@ -1419,28 +1418,29 @@ The following example uses on dynamic depencies:
             build each of those targets in turn."
       target_list
 
-The `string_list_of_file` function reads a file and return the list of
+The `string_list_of_file` function reads a file and returns the list of
 its lines -- it is used in the various builtin rules for files
-containing file or module paths (`.mllib`, `.odocl`, here `.itarget`).
+containing other file or module paths
+(e.g. `.mllib`, `.odocl` or here `.itarget`).
 
-The function `build` expects a list of lists in argument, to be
+The function `build` takes as argument a list of lists, to be
 understood as a conjunction of disjunctions. For example, if passed
 the input `[["a/foo.byte"; "b/foo.byte"]; ["a/foo.native";
-"b/foo.native"]]`, it will try to build ((`a/foo.byte` OR
-`b/foo.byte`) AND (`a/foo.native` OR `b/foo.native`)). The disjunctive
-structure (this OR that) is useful because we are often not quite sure
-where a particular target may be (for example the module `Foo` may be
-in any of the subdirectories in the include path). The conjunctive
-structure (this AND that) is essential to parallelizing the build:
-ocamlbuild will try to build all these targets in parallel, whereas
-sequential invocation of the `build` function on each of the
-disjunctions would give sequential builds.
+"b/foo.native"]]`, it tries to build ((`a/foo.byte` OR `b/foo.byte`)
+AND (`a/foo.native` OR `b/foo.native`)). The disjunctive structure
+(this OR that) is useful because we are often not quite sure where a
+particular target may be (for example the module Foo may be in any of
+the subdirectories in the include path). The conjunctive structure
+(this AND that) is essential to parallelizing the build: ocamlbuild
+tries to build all these targets in parallel, whereas sequential
+invocation of the build function on each of the disjunctions would
+give sequential builds.
 
 The function `build` returns a list of outcomes (`(string, exn)
 Outcome.t` -- `Outcome.t` is just a disjoint-sum type), that is either
-a `string` (the one of the several possible targets that could
-be built) or an exception value. `Outcome.good` returns the good
-result if it exists, or raises the exception.
+a `string` (the possible target that could be built) or an exception.
+`Outcome.good` returns the good result if it exists, or raises the
+exception.
 
 ### Stamps <a id="rules-stamps"></a>
 
