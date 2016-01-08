@@ -570,7 +570,7 @@ build `foo.ml` (or find it in the source directory), then generate
 hopefully add documentation, and then move it to `foo.mli` by
 themselves.
 
-The target extensions understood by OCamlbuild built-in rules are
+The target extensions understood by the OCamlbuild built-in rules are
 listed in the following subsections. Again, note that `myocamlbuild`
 plugins may add new targets and rules.
 
