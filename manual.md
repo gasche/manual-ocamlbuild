@@ -1275,7 +1275,9 @@ follow:
       | P of pathname  (** A pathname. *)
       [...]
 
-Remark: when introducing new flags, it is sometime difficult to guess
+##### Remark: tag handling in flags
+
+When introducing new flags, it is sometime difficult to guess
 which combination of tags to use. A hint to find the right combination
 is to have a look at OCamlbuild's log file that is saved in
 `_build/_log` each time ocamlbuild is run.  It contains the targets
