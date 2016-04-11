@@ -570,9 +570,10 @@ build `foo.ml` (or find it in the source directory), then generate
 hopefully add documentation, and then move it to `foo.mli` by
 themselves.
 
-The target extensions understood by OCamlbuild built-in rules are
+The target extensions understood by the OCamlbuild built-in rules are
 listed in the following subsections. Again, note that `myocamlbuild`
-plugins may add new targets and rules.
+plugins may add new targets and rules. To see them programmatically,
+see the [`-documentation`](#reference-documentation) section.
 
 ### Basic targets <a id="targets-basics"></a>
 
@@ -1275,7 +1276,9 @@ follow:
       | P of pathname  (** A pathname. *)
       [...]
 
-Remark: when introducing new flags, it is sometime difficult to guess
+##### Remark: tag handling in flags
+
+When introducing new flags, it is sometime difficult to guess
 which combination of tags to use. A hint to find the right combination
 is to have a look at OCamlbuild's log file that is saved in
 `_build/_log` each time ocamlbuild is run.  It contains the targets
@@ -1383,6 +1386,23 @@ action's command. In particular, it is the code of the rule's action
 that decides which, if any, tags are taken into account and if they come
 from the rule dependencies, products or both. (Unfortunately, the built-in
 rules themselves are sometimes a bit inconsistent on this.)
+
+##### Remark: rule overwriting and ordering
+
+As discussed in previous sections, OCamlbuild comes with many built in
+[rules](#concept-rules-targets) to build OCaml [targets](#reference-targets).
+The example above overwrites one of the build in rules (which one
+can see with `$ ocamlbuild -documentation | grep --context=10
+"ocaml dependencies ml"`).
+One cannot overwrite existing rules and needs to use a different name
+(e.g. "custom ocaml dependencies ml").
+Lastly, the new rule needs to come _before_ the rule that it is replacing.
+Use the `~insert` argument to `rule` to either (suggested) place it before
+the built in rule (`` `before "ocaml dependencies ml" ``) or at the top
+(`` `top``).
+The default behavior of `~insert` will place the custom rule at the bottom,
+where it will not be applied because the built-in rule can satisfy the target.
+
 
 ### Dynamic dependencies <a id="rules-dynamic-deps"></a>
 
