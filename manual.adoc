@@ -1106,7 +1106,7 @@ flag ["ocaml"; "use_camlp4_bin"; "link"; "native"]
 ----
 
 The `A` constructor stands for ‘atom(ic)’, and is part of a `spec` datatype, representing specifications of fragments of command.
-We will not describe its most advanced constructors -- it is again exposed and documented in `signatures.mli` -- but the most relevant here are as follow:
+We will not describe its most advanced constructors -- it is again exposed and documented in `signatures.mli` -- but the most relevant here are:
 
 [source,ocaml]
 ----
