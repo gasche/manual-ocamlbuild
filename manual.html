@@ -2273,7 +2273,7 @@ It is very easy, for example, to pass a different command-line argument dependin
 </div>
 <div class="paragraph">
 <p>The <code>A</code> constructor stands for ‘atom(ic)’, and is part of a <code>spec</code> datatype, representing specifications of fragments of command.
-We will not describe its most advanced constructors&#8201;&#8212;&#8201;it is again exposed and documented in <code>signatures.mli</code>&#8201;&#8212;&#8201;but the most relevant here are as follow:</p>
+We will not describe its most advanced constructors&#8201;&#8212;&#8201;it is again exposed and documented in <code>signatures.mli</code>&#8201;&#8212;&#8201;but the most relevant here are:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2332,12 +2332,12 @@ We will not write an exhaustive documentation here (for this, have a look at <co
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>rule "ocaml dependencies ml"
-  ~prod:"%.ml.depends"
-  ~dep:"%.ml"
-  ~doc:"call ocamldep to compute a syntactic over-approximation \\
-        of the dependencies of the corresponding implementation file"
-  ocamldep_ml_command</pre>
+<pre class="pygments highlight"><code data-lang="ocaml"><span class="tok-n">rule</span> <span class="tok-s2">&quot;ocaml dependencies ml&quot;</span>
+  <span class="tok-o">~</span><span class="tok-n">prod</span><span class="tok-o">:</span><span class="tok-s2">&quot;%.ml.depends&quot;</span>
+  <span class="tok-o">~</span><span class="tok-n">dep</span><span class="tok-o">:</span><span class="tok-s2">&quot;%.ml&quot;</span>
+  <span class="tok-o">~</span><span class="tok-n">doc</span><span class="tok-o">:</span><span class="tok-s2">&quot;call ocamldep to compute a syntactic over-approximation </span><span class="tok-se">\\</span><span class="tok-s2"></span>
+<span class="tok-s2">        of the dependencies of the corresponding implementation file&quot;</span>
+  <span class="tok-n">ocamldep_ml_command</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2374,7 +2374,7 @@ To these tags the rule code also adds the two contextual tags <code>ocaml</code>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>Cmd(S[A "ocamldep"; T tags; A "-modules"; P arg; Sh "&gt;"; Px out])</pre>
+<pre class="pygments highlight"><code data-lang="ocaml"><span class="tok-nc">Cmd</span><span class="tok-o">(</span><span class="tok-nc">S</span><span class="tok-o">[</span><span class="tok-nc">A</span> <span class="tok-s2">&quot;ocamldep&quot;</span><span class="tok-o">;</span> <span class="tok-nc">T</span> <span class="tok-n">tags</span><span class="tok-o">;</span> <span class="tok-nc">A</span> <span class="tok-s2">&quot;-modules&quot;</span><span class="tok-o">;</span> <span class="tok-nc">P</span> <span class="tok-n">arg</span><span class="tok-o">;</span> <span class="tok-nc">Sh</span> <span class="tok-s2">&quot;&gt;&quot;</span><span class="tok-o">;</span> <span class="tok-nc">Px</span> <span class="tok-n">out</span><span class="tok-o">])</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2628,7 +2628,7 @@ For example, the rule to produce the dynamic library archive <code>dllfoo.so</co
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-04-18 12:45:48 CEST
+Last updated 2016-04-18 14:41:33 CEST
 </div>
 </div>
 </body>
