@@ -1187,6 +1187,7 @@ To these tags the rule code also adds the two contextual tags `ocaml` and `ocaml
 
 Finally, the command is built:
 
+[source,ocaml]
 ----
 Cmd(S[A "ocamldep"; T tags; A "-modules"; P arg; Sh ">"; Px out])
 ----
