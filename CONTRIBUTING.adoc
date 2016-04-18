@@ -19,7 +19,7 @@ For less precise comments (or to send patches), you can send an e-mail to (gabri
 
 == OCamlbuild
 
-Bugs in OCamlbuild itself should be reported on the Mantis bugtracked of the OCaml distribution, http://http://caml.inria.fr/mantis/, using the OCamlbuild-specific category.
+Bugs in OCamlbuild itself should be reported on http://http://caml.inria.fr/mantis/[the Mantis bugtracker for the OCaml distribution], using the OCamlbuild-specific category.
 Any OCamlbuild-related question can be asked on the mailto:caml-list@inria.fr[caml-list mailing-list].
 
 Contributions under the form of patches are most welcome. OCamlbuild is free software, licensed under the GNU LGPL, and we do our best to review, give feedback, and integrate patches uploaded on Mantis or pull requests on the https://github.com/ocaml/ocaml/pulls[GitHub mirror] of the source code repository for the OCaml distribution.
