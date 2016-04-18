@@ -1150,6 +1150,7 @@ We will not write an exhaustive documentation here (for this, have a look at `si
 
 Our first example is simple, as it is a rule without dynamic dependencies:
 
+[source,ocaml]
 ----
 rule "ocaml dependencies ml"
   ~prod:"%.ml.depends"
