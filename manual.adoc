@@ -1,15 +1,16 @@
 = The OCamlbuild manual
-:caution-caption: ☠
-:important-caption: ❗
-:note-caption: 🛈
-:sectnums:
+:caution-caption: ☡ CAUTION
+:important-caption: ❗ IMPORTANT
+:note-caption: 🛈 NOTE
 :sectanchors:
 :sectlinks:
+:sectnums:
+:sectnumlevels: 6
 :source-highlighter: pygments
-:tip-caption: 💡
+:tip-caption: 💡 TIP
 :toc-placement: preamble
 :toc:
-:warning-caption: ⚠
+:warning-caption: ⚠ WARNING
 
 OCamlbuild's job is to determine the sequence of calls to the compiler -- with the right set of command-line flags -- needed to build your OCaml-centric software project.
 
