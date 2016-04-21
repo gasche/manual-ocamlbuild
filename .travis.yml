@@ -1,0 +1,42 @@
+sudo: required
+services:
+  - docker
+before_install:
+  # Dummy: true shell command. Required for deployment-only builds?
+  - true
+script:
+  # Dummy: true shell command. Required for deployment-only builds?
+  - true
+before_deploy:
+  # Use sleep to keep container running after start.
+  - mkdir 'docs/'
+  - mv *.adoc 'docs/'
+  # TODO: use lighter-weight image with fixed Asciidoctor version.
+  - docker create --name='asciidoctor' --user="$(id -u)" --volume="$TRAVIS_BUILD_DIR/docs/:/srv/docs/:rw" --workdir='/srv/docs/' 'asciidoctor/docker-asciidoctor:latest' sleep 1d
+  - docker start 'asciidoctor'
+  # Add user and group of CI user to Docker namespace. This is required for pygments.rb 0.6.3 to work.
+  - docker exec --user=0:0 'asciidoctor' groupadd -g "$(id -g)" "$(id -g -n)"
+  - docker exec --user=0:0 'asciidoctor' useradd -m -u "$(id -u)" -g "$(id -g)" "$(id -u -n)"
+  - docker exec 'asciidoctor' mkdir 'output/'
+  - docker exec 'asciidoctor' asciidoctor --attribute version="$TRAVIS_TAG" --trace --verbose --timings -D 'output/' 'manual.adoc'
+  - docker exec 'asciidoctor' asciidoctor-pdf --attribute version="$TRAVIS_TAG" --trace --verbose --timings -D 'output/' 'manual.adoc'
+  - docker stop 'asciidoctor'
+  - rename.ul --verbose '.html' ".$TRAVIS_TAG.html" 'docs/output/manual.html'
+  - rename.ul --verbose '.pdf' ".$TRAVIS_TAG.pdf" 'docs/output/manual.pdf'
+  - HTML_MANUAL_FILE_PATH="docs/output/manual.$TRAVIS_TAG.html"
+  - PDF_MANUAL_FILE_PATH="docs/output/manual.$TRAVIS_TAG.pdf"
+  - ls -lah 'docs/output/'
+after_failure:
+  - docker logs 'asciidoctor'
+deploy:
+  api_key:
+    secure: "$DEPLOY_OAUTH_TOKEN"
+  file:
+    - "$HTML_MANUAL_FILE_PATH"
+    - "$PDF_MANUAL_FILE_PATH"
+  on:
+    all_branches: true
+    repo: sanmai-NL/manual-ocamlbuild
+  overwrite: true
+  provider: releases
+  skip_cleanup: true

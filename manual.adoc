@@ -1,4 +1,4 @@
-= The OCamlbuild manual
+= The OCamlbuild manual ({version})
 :caution-caption: ☡ CAUTION
 :important-caption: ❗ IMPORTANT
 :note-caption: 🛈 NOTE
