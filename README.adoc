@@ -1,9 +1,9 @@
 This repository used to hold the up-to-date version of my draft for
 a new OCamlbuild manual. The manual was since merged in the
-[ocamlbuild repository](https://github.com/gasche/manual-ocamlbuild),
+https://github.com/gasche/manual-ocamlbuild[ocamlbuild repository],
 and can be found there:
 
-  https://github.com/ocaml/ocamlbuild/blob/master/manual/manual.adoc
+https://github.com/ocaml/ocamlbuild/blob/master/manual/manual.adoc
 
 The present repository still has a pull-request and some issues that
 remain to be ported to the new repository.
